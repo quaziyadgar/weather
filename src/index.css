@@ -5,9 +5,36 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./image/background.jpg");
+  background-repeat: no-repeat;
+  color: white;
+  margin-top: 5vh;
+  box-sizing: border-box;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.input>input{
+  width: 15vw;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  text-align: center;
+}
+.input>button{
+  background-color: aqua;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 1vw;
+}
+
+.desc1{
+  margin-top: 10vh;
+}
+.desc2{
+  margin-top: 8vh;
 }
