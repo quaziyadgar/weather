@@ -1,53 +1,60 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import Chart from './Chart';
 
 function Weather(){
-    const [data,setData] = useState({});
-    const [inp,setInp] = useState('');
+    const [data,setData] = useState(null);
+    const [city,setCity] = useState(null);
+    const [inp,setInp] = useState("bangalore");
     const[show,setShow]=useState(false);
     const handleChange = (e)=>{
         setInp(e.target.value);
     }
     
-    const city = inp;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=4e2408ff9486a3c4e6ee08c5b1e6bf6e`;
+    useEffect(()=>{
+        const city = inp;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=4e2408ff9486a3c4e6ee08c5b1e6bf6e`;
     const weather = fetch(url).then((response)=>{
         return response.json();
     }).then((data)=>{
+        setData(data.main);
+        setCity(data);
+        //console.log(data);
         return data;
-    }).catch(err=>console.log(err));
-
-    const searchForWeather = ()=>{
-        console.log(inp);
-        console.log(weather);
-    }
+    });
+    },[inp]);
+    
     return(
     <>
         <div className='input'>
             <input type="text" placeholder="Enter Location" onChange={handleChange} />
-            <button onClick={searchForWeather}>Fetch</button>
         </div>
-        <div className='desc1'>
-            <p>Weather Description - Cloudy</p>
-            <p>Current  temperature - 29℃</p>
-            <p>Today's high temperature - 32℃</p>
-            <p>Today's low temperature - 25℃</p>
+        {
+            !data?(<p>No data found</p>):(
+                <>
+                <div className='desc1'>
+            <p>City - {city.name}</p>
+            <p>Weather Description - {city.weather[0].description}</p>
+            <p>Current  temperature - {data.temp}℃</p>
+            <p>Today's high temperature - {data.temp_max}℃</p>
+            <p>Today's low temperature - {data.temp_min}℃</p>
         </div>
         <div className='desc2'>
             {
                 show?
                 <div>
-                    <p>Wind speed - 20 Km/h</p>
-                    <p>Humidity - 35 %</p>
-                    <p>Pressure - 1 mbar</p>
-                    <p>Sunrise - 05:48 am Sunset - 6.48pm</p>
+                    <p>Wind speed - {city.wind.speed} Km/h</p>
+                    <p>Humidity - {data.humidity} %</p>
+                    <p>Pressure - {data.pressure} mbar</p>
+                    <p>Sunrise - {city.sys.sunrise} Sunset - {city.sys.sunset}</p>
                 </div>
                 :null
             }
             <button onClick={()=>setShow(!show)}>{!show?"More info":"Less info"}</button>
         </div>
-        <div className='chart'>
-            
-        </div>
+            <Chart city={inp}/>
+                </>
+            )
+        }
     </>
     );
 }
