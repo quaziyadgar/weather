@@ -12,7 +12,7 @@ function Weather(){
     
     useEffect(()=>{
         const city = inp;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=4e2408ff9486a3c4e6ee08c5b1e6bf6e`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=90a7a54a319f3cb24209a039be3ef186`;
     const weather = fetch(url).then((response)=>{
         return response.json();
     }).then((data)=>{

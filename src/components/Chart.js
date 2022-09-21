@@ -6,10 +6,13 @@ function Chart(city) {
   const refContainer = useRef(null);
   const [dataSource, setDataSource] = useState([]);
   const [data,setData] =useState(null);
-  const cityname = city.city;
-  const url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityname}&units=metric&cnt=7&appid=4e2408ff9486a3c4e6ee08c5b1e6bf6e`;
+  const cityName = city.city;
+  const url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&cnt=7&appid=90a7a54a319f3cb24209a039be3ef186`;
   const highTemp =[];
   const lowTemp = [];
+  const day = new Date();
+  const date = ['Tomorrow',day.getDate()+2,day.getDate()+3,day.getDate()+4,day.getDate()+5,day.getDate()+6,day.getDate()+7];
+  //console.log(date);
   useEffect(()=>{
     const forecast = fetch(url).then(response=>response.json())
     .then(data=>{
@@ -17,14 +20,13 @@ function Chart(city) {
     });
     
     if(data !== null)
-    data.forEach(element=>{
-      highTemp.push(element.main.temp_max);
-      lowTemp.push(element.main.temp_min);
-    });
+    for(let i =0; i<7;i++){
+      highTemp.push(data[i].main.temp_max);
+      lowTemp.push(data[i].main.temp_min);
+    }
+    //console.log(highTemp);
+    //console.log(lowTemp);
   },[]);
-  console.log(highTemp);
-  console.log(lowTemp);
-  
   useEffect(() => {
     const chart = Highcharts.chart(refContainer.current, {
       chart: {
@@ -43,7 +45,7 @@ function Chart(city) {
       },
       xAxis: {
         min: 0.4,
-        categories: ['Today','Tomorrow','Sunday','Monday','Tuesday','Wednesday','Thursday'],
+        categories: date,
         title: {
           text: 'Days'
         } // the title of the X Axis
@@ -74,10 +76,10 @@ function Chart(city) {
     setTimeout(() => {
       setDataSource([{
         name: 'High Temperature',
-        data: [29, 31, 33, 35, 37, 32, 35]
+        data: highTemp
       }, {
         name: 'Low Temperature',
-        data: [27, 25, 28, 26, 24, 27, 25]
+        data: lowTemp
       }]);
     }, 2000);
   }, []);
