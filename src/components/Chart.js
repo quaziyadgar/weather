@@ -6,8 +6,6 @@ function Chart(city) {
   const refContainer = useRef(null);
   const [dataSource, setDataSource] = useState([]);
   const [data,setData] =useState(null);
-
-  const [cityName] = useState(city.city);
   const [done, setDone] = useState(false);
   const cityName = city.city;
 
@@ -20,23 +18,16 @@ function Chart(city) {
   useEffect(()=>{
     const forecast = fetch(url).then(response=>response.json())
     .then(data=>{
-      setData(data.list);<<<<<<< fix_graph
+      setData(data.list);
       DataSo(data.list)
 
       console.log(data);
 
     });
     
-    // if(data !== null)
-    // for(let i =0; i<7;i++){
-    //   highTemp.push(data[i].main.temp_max);
-    //   lowTemp.push(data[i].main.temp_min);
-      
-    // }
+   
     setDone(true);
-    // DataSo()
-    //console.log(highTemp);
-    //console.log(lowTemp);
+    
   },[cityName]);
 
   
@@ -87,21 +78,6 @@ function Chart(city) {
   }, [dataSource]);
  
 
-  // useEffect(() => {
-  //   // setTimeout(() => {
-  //     console.log(highTemp)
-  //     setDataSource([{
-  //       name: 'High Temperature',
-  //       data: highTemp
-  //     }, {
-  //       name: 'Low Temperature',
-  //       data: lowTemp
-  //     }]);
-  //   // }, 2000);
-  
-  // }, [done]);
-
-
   function DataSo(data){
     console.log(highTemp)
     if(data !== null)
@@ -118,23 +94,6 @@ function Chart(city) {
       data: lowTemp
     }]);
   }
-  
-  return ( 
-
-  useEffect(() => {
-    setTimeout(() => {
-      setDataSource([{
-        name: 'High Temperature',
-        data: highTemp
-      }, {
-        name: 'Low Temperature',
-        data: lowTemp
-      }]);
-    }, 0);
-    console.log(highTemp,lowTemp);
-  }, []);
-  
- 
   return (
 
     <div className="App">
