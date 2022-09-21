@@ -9,7 +9,7 @@ function Chart(city) {
   const [done, setDone] = useState(false);
   const cityName = city.city;
 
-  const url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&cnt=7&appid=90a7a54a319f3cb24209a039be3ef186`;
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&cnt=7&appid=90a7a54a319f3cb24209a039be3ef186`;
   const highTemp =[];
   const lowTemp = [];
   const day = new Date();
