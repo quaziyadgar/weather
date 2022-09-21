@@ -7,7 +7,8 @@ function Chart(city) {
   const [dataSource, setDataSource] = useState([]);
   const [data,setData] =useState(null);
   const [cityName] = useState(city.city);
-  const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city.city}&units=metric&cnt=7&appid=90a7a54a319f3cb24209a039be3ef186`;
+  const [done, setDone] = useState(false)
+  const url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&cnt=7&appid=90a7a54a319f3cb24209a039be3ef186`;
   const highTemp =[];
   const lowTemp = [];
   const day = new Date();
@@ -17,14 +18,17 @@ function Chart(city) {
     const forecast = fetch(url).then(response=>response.json())
     .then(data=>{
       setData(data.list);
+      DataSo(data.list)
     });
     
-    if(data !== null)
-    for(let i =0; i<7;i++){
-      highTemp.push(data[i].main.temp_max);
-      lowTemp.push(data[i].main.temp_min);
+    // if(data !== null)
+    // for(let i =0; i<7;i++){
+    //   highTemp.push(data[i].main.temp_max);
+    //   lowTemp.push(data[i].main.temp_min);
       
-    }
+    // }
+    setDone(true);
+    // DataSo()
     //console.log(highTemp);
     //console.log(lowTemp);
   },[cityName]);
@@ -76,19 +80,39 @@ function Chart(city) {
     }
   }, [dataSource]);
  
-  useEffect(() => {
-    setTimeout(() => {
-      setDataSource([{
-        name: 'High Temperature',
-        data: highTemp
-      }, {
-        name: 'Low Temperature',
-        data: lowTemp
-      }]);
-    }, 2000);
-  }, []);
- 
-  return (
+  // useEffect(() => {
+  //   // setTimeout(() => {
+  //     console.log(highTemp)
+  //     setDataSource([{
+  //       name: 'High Temperature',
+  //       data: highTemp
+  //     }, {
+  //       name: 'Low Temperature',
+  //       data: lowTemp
+  //     }]);
+  //   // }, 2000);
+  
+  // }, [done]);
+
+
+  function DataSo(data){
+    console.log(highTemp)
+    if(data !== null)
+    for(let i =0; i<7;i++){
+      highTemp.push(data[i].main.temp_max);
+      lowTemp.push(data[i].main.temp_min);
+      
+    }
+    setDataSource([{
+      name: 'High Temperature',
+      data: highTemp
+    }, {
+      name: 'Low Temperature',
+      data: lowTemp
+    }]);
+  }
+  
+  return ( 
     <div className="App">
       <div ref={refContainer} />
     </div>
