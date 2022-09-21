@@ -2,12 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import Highcharts from 'highcharts';
  
 function Chart(city) {
-  //console.log(city.city);
+  //console.log(city);
   const refContainer = useRef(null);
   const [dataSource, setDataSource] = useState([]);
   const [data,setData] =useState(null);
+
   const [cityName] = useState(city.city);
-  const [done, setDone] = useState(false)
+  const [done, setDone] = useState(false);
+  const cityName = city.city;
+
   const url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&cnt=7&appid=90a7a54a319f3cb24209a039be3ef186`;
   const highTemp =[];
   const lowTemp = [];
@@ -17,8 +20,11 @@ function Chart(city) {
   useEffect(()=>{
     const forecast = fetch(url).then(response=>response.json())
     .then(data=>{
-      setData(data.list);
+      setData(data.list);<<<<<<< fix_graph
       DataSo(data.list)
+
+      console.log(data);
+
     });
     
     // if(data !== null)
@@ -80,6 +86,7 @@ function Chart(city) {
     }
   }, [dataSource]);
  
+
   // useEffect(() => {
   //   // setTimeout(() => {
   //     console.log(highTemp)
@@ -113,6 +120,23 @@ function Chart(city) {
   }
   
   return ( 
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDataSource([{
+        name: 'High Temperature',
+        data: highTemp
+      }, {
+        name: 'Low Temperature',
+        data: lowTemp
+      }]);
+    }, 0);
+    console.log(highTemp,lowTemp);
+  }, []);
+  
+ 
+  return (
+
     <div className="App">
       <div ref={refContainer} />
     </div>
