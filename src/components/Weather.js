@@ -4,7 +4,7 @@ import Chart from './Chart';
 function Weather(){
     const [data,setData] = useState(null);
     const [city,setCity] = useState(null);
-    const [inp,setInp] = useState("bangalore");
+    const [inp,setInp] = useState("bangalore"); 
     const[show,setShow]=useState(false);
     const handleChange = (e)=>{
         setInp(e.target.value);
