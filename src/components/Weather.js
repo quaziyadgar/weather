@@ -18,7 +18,7 @@ function Weather(){
     }).then((data)=>{
         setData(data.main);
         setCity(data);
-        //console.log(data);
+        console.log(data);
         return data;
     });
     },[inp]);
@@ -51,7 +51,7 @@ function Weather(){
             }
             <button onClick={()=>setShow(!show)}>{!show?"More info":"Less info"}</button>
         </div>
-            <Chart city={inp}/>
+            <Chart city={inp} />
                 </>
             )
         }
