@@ -13,7 +13,7 @@ function Chart(city) {
   const highTemp =[];
   const lowTemp = [];
   const day = new Date();
-  const date = ['Tomorrow',day.getDate()+2,day.getDate()+3,day.getDate()+4,day.getDate()+5,day.getDate()+6,day.getDate()+7];
+  const date = ['Tomorrow',day.getDate()+2,day.getDate()+3,day.getDate()+4,day.getDate()+5,day.getDate()+6,day.getDate()+7,day.getDate()+8,day.getDate()+9,day.getDate()+10,day.getDate()+11,day.getDate()+12,day.getDate()+13];
   //console.log(date);
   useEffect(()=>{
     const forecast = fetch(url).then(response=>response.json())
@@ -84,7 +84,7 @@ function Chart(city) {
     for(let i =0; i<7;i++){
       highTemp.push(data[i].main.temp_max);
       lowTemp.push(data[i].main.temp_min);
-      
+
     }
     setDataSource([{
       name: 'High Temperature',
