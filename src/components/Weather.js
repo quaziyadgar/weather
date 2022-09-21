@@ -18,7 +18,7 @@ function Weather(){
     }).then((data)=>{
         setData(data.main);
         setCity(data);
-        console.log(data);
+        //console.log(data);
         return data;
     });
     },[inp]);

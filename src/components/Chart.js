@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import Highcharts from 'highcharts';
  
 function Chart(city) {
-  //console.log(city);
+  console.log(city.city);
   const refContainer = useRef(null);
   const [dataSource, setDataSource] = useState([]);
   const [data,setData] =useState(null);
-  const cityName = city.city;
-  const url = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&cnt=7&appid=90a7a54a319f3cb24209a039be3ef186`;
+  const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city.city}&units=metric&cnt=7&appid=90a7a54a319f3cb24209a039be3ef186`;
   const highTemp =[];
   const lowTemp = [];
   const day = new Date();
@@ -23,10 +22,13 @@ function Chart(city) {
     for(let i =0; i<7;i++){
       highTemp.push(data[i].main.temp_max);
       lowTemp.push(data[i].main.temp_min);
+      
     }
     //console.log(highTemp);
     //console.log(lowTemp);
-  },[]);
+  },[dataSource]);
+
+  
   useEffect(() => {
     const chart = Highcharts.chart(refContainer.current, {
       chart: {
