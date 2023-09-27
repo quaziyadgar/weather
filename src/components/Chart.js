@@ -5,8 +5,8 @@ function Chart(city) {
   //console.log(city);
   const refContainer = useRef(null);
   const [dataSource, setDataSource] = useState([]);
-  const [data,setData] =useState(null);
-  const [done, setDone] = useState(false);
+  // const [data,setData] =useState(null);
+  // const [done, setDone] = useState(false);
   const cityName = city.city;
 
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=metric&cnt=7&appid=90a7a54a319f3cb24209a039be3ef186`;
@@ -16,9 +16,9 @@ function Chart(city) {
   const date = ['Tomorrow',day.getDate()+2,day.getDate()+3,day.getDate()+4,day.getDate()+5,day.getDate()+6,day.getDate()+7,day.getDate()+8,day.getDate()+9,day.getDate()+10,day.getDate()+11,day.getDate()+12,day.getDate()+13];
   //console.log(date);
   useEffect(()=>{
-    const forecast = fetch(url).then(response=>response.json())
+  fetch(url).then(response=>response.json())
     .then(data=>{
-      setData(data.list);
+      // setData(data.list);
       DataSo(data.list)
 
       console.log(data);
@@ -26,7 +26,7 @@ function Chart(city) {
     });
     
    
-    setDone(true);
+    // setDone(true);
     
   },[cityName]);
 
@@ -80,7 +80,7 @@ function Chart(city) {
 
   function DataSo(data){
     console.log(highTemp)
-    if(data !== null)
+    if(data)
     for(let i =0; i<7;i++){
       highTemp.push(data[i].main.temp_max);
       lowTemp.push(data[i].main.temp_min);
